@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -21,164 +22,126 @@
 
         .card {
             background: #1e1e24;
-            padding: 35px 25px;
+            padding: 30px 20px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 42, 117, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 42, 117, 0.3);
             max-width: 85%;
-            width: 340px;
+            width: 330px;
             border: 1px solid rgba(255, 42, 117, 0.3);
+            position: relative;
         }
 
-        .lock-icon {
+        .icon {
             font-size: 50px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         h1 {
             color: #ff2a75;
             font-size: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         p {
-            color: #bbb;
+            color: #ddd;
             font-size: 14px;
             line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        input {
-            width: 80%;
-            padding: 12px;
-            font-size: 16px;
-            background: #2a2a35;
-            border: 1px solid #444;
-            color: #fff;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #ff2a75;
-        }
-
-        .btn {
-            background-color: #ff2a75;
-            color: white;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(255, 42, 117, 0.4);
-            transition: background 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #e01e63;
-        }
-
-        .error-msg {
-            color: #ff5252;
-            font-size: 13px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .choices {
+        .btn-container {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 50px;
         }
 
-        .choices button {
-            flex: 1;
-            padding: 12px;
+        button {
+            padding: 12px 25px;
             font-size: 15px;
             font-weight: bold;
-            border-radius: 10px;
             border: none;
+            border-radius: 12px;
             cursor: pointer;
+            transition: transform 0.1s ease;
         }
 
         #yesBtn {
             background-color: #ff2a75;
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 42, 117, 0.4);
         }
 
         #noBtn {
             background-color: #333;
             color: #aaa;
+            position: absolute;
+        }
+
+        .heart-bg {
+            position: absolute;
+            font-size: 22px;
+            color: #ff4d6d;
+            animation: float 3s infinite ease-in;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(0.8); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card" id="lockScreen">
-        <div class="lock-icon" id="lockEmoji">🔒</div>
-        <h1>Секретное послание</h1>
-        <p>Введи кодовое слово (твое имя или дату), чтобы открыть замок:</p>
+    <div class="card" id="mainCard">
+        <div class="icon">💌</div>
+        <h1>Прости меня, Диёра</h1>
+        <p>Мы оба были не правы. Не хочу терять тебя, ты у меня самая любимая девушка, ты самое лучшее, что у меня есть. Очень дорожу тобой ❤️</p>
+        <p style="font-weight: bold; color: #ff2a75; margin-bottom: 20px;">Ты прощаешь меня?</p>
         
-        <input type="text" id="passInput" placeholder="Подсказка: Диёра">
-        <br>
-        <button class="btn" onclick="checkPassword()">Открыть</button>
-        <div class="error-msg" id="errorMsg">Неправильно, попробуй еще раз ❤️</div>
-    </div>
-
-    <div class="card hidden" id="messageScreen">
-        <div style="font-size: 45px; margin-bottom: 10px;">💌</div>
-        <h1>Я был не прав...</h1>
-        <p>Прости меня за всё. Я очень дорожу тобой и не хочу, чтобы ты обижалась. Ты — самое лучшее, что у меня есть.</p>
-        <p style="font-weight: bold; color: #fff; margin-top: 10px;">Ты прощаешь меня?</p>
-        
-        <div class="choices">
-            <button id="yesBtn" onclick="acceptForgiveness()">Да ❤️</button>
-            <button id="noBtn" onclick="denyForgiveness()">Нет 😔</button>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="forgive()">Да ❤️</button>
+            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()" style="right: 15px;">Нет 😔</button>
         </div>
     </div>
 
     <script>
-        function checkPassword() {
-            const input = document.getElementById('passInput').value.trim().toLowerCase();
-            const errorMsg = document.getElementById('errorMsg');
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
             
-            // Здесь можно изменить правильный пароль (сейчас это 'диёра' на любом регистре)
-            if (input === 'диёра' || input === 'diyora') {
-                document.getElementById('lockEmoji').innerText = '🔓';
-                setTimeout(() => {
-                    document.getElementById('lockScreen').classList.add('hidden');
-                    document.getElementById('messageScreen').classList.remove('hidden');
-                }, 400);
-            } else {
-                errorMsg.style.display = 'block';
-                input.value = '';
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function forgive() {
+            const card = document.getElementById('mainCard');
+            card.innerHTML = `
+                <div style="font-size: 55px; margin-bottom: 10px;">🥰💖✨</div>
+                <h1>Ура! Спасибо, любимая!</h1>
+                <p>Я очень сильно люблю тебя! Постараюсь больше не обижать и не расстраивать тебя. Ты у меня самая лучшая! ❤️</p>
+            `;
+
+            for (let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 70);
             }
         }
 
-        function acceptForgiveness() {
-            const screen = document.getElementById('messageScreen');
-            screen.innerHTML = `
-                <div style="font-size: 55px; margin-bottom: 10px;">🥰💖✨</div>
-                <h1>Ура! Спасибо, любимая!</h1>
-                <p>Обещаю больше никогда тебя не расстраивать. Ты моя самая лучшая!</p>
-            `;
-        }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-bg';
+            heart.innerText = ['❤️', '💖', '🌸', '✨', '💕'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '0px';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(heart);
 
-        function denyForgiveness() {
-            const screen = document.getElementById('messageScreen');
-            screen.innerHTML = `
-                <div style="font-size: 50px; margin-bottom: 10px;">🥺</div>
-                <h1>Я буду стараться лучше</h1>
-                <p>Я понимаю твою обиду, но я всё равно буду доказывать тебе, как сильно я тебя люблю.</p>
-            `;
+            setTimeout(() => heart.remove(), 4000);
         }
     </script>
 </body>
