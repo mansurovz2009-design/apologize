@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Отключаем автоматическую темную тему мобильных браузеров -->
     <meta name="color-scheme" content="light only">
     <title>Для Диёры ❤️</title>
     <style>
@@ -16,8 +15,7 @@
             padding: 0;
             width: 100vw;
             height: 100vh;
-            height: 100dvh; /* Поддержка точной высоты мобильного экрана */
-            /* Фиксируем градиентный фон */
+            height: 100dvh;
             background: #ff9a9e !important;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a1c4fd 100%) !important;
             font-family: 'Arial', sans-serif;
@@ -46,17 +44,9 @@
         }
 
         @keyframes floatAround {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0.2;
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-10vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.2; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .card {
@@ -80,7 +70,7 @@
 
         h1 {
             color: #ff3366 !important;
-            font-size: 21px;
+            font-size: 20px;
             margin-bottom: 12px;
         }
 
@@ -141,14 +131,14 @@
     <div class="bg-flowers" id="bgFlowers"></div>
 
     <div class="card" id="mainCard">
-        <div class="icon">🌸</div>
-        <h1>Прости меня, Диёра</h1>
-        <p>Мы оба были не правы. Не хочу терять тебя, ты у меня самая любимая девушка, ты самое лучшее, что у меня есть. Очень дорожу тобой ❤️</p>
-        <p style="font-weight: bold; color: #ff3366; margin-bottom: 20px;">Ты прощаешь меня?</p>
+        <div class="icon">🌹✨</div>
+        <h1>Диёра, ты мой самый любимый человек</h1>
+        <p>Из меня иногда получается так себе дипломат, но парень, который тебя обожает — самый настоящий! Прости за глупость. Без твоей улыбки мой день теряет всякий смысл. Ты самое лучшее, что у меня есть ❤️</p>
+        <p style="font-weight: bold; color: #ff3366; margin-bottom: 20px;">Простишь своего дурачка?</p>
         
         <div class="btn-container">
-            <button id="yesBtn" onclick="forgive()">Да ❤️</button>
-            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()" style="right: 15px;">Нет 😔</button>
+            <button id="yesBtn" onclick="forgive()">Да 🥰</button>
+            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()" style="right: 15px;">Нет 😜</button>
         </div>
     </div>
 
